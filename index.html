@@ -1,0 +1,276 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>امتحان التربية الإسلامية</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Cairo',sans-serif;
+    background:linear-gradient(135deg,#eef5ff,#f8fafc);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    background:#fff;
+    border-radius:30px;
+    padding:40px;
+    box-shadow:0 20px 50px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.top-badge{
+    display:inline-block;
+    background:#eef4ff;
+    color:#1e40af;
+    padding:8px 20px;
+    border-radius:50px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.logo{
+    width:100px;
+    height:100px;
+    margin:auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,#1e40af,#2563eb);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    color:white;
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+}
+
+h1{
+    color:#143d8d;
+    font-size:40px;
+    font-weight:800;
+    margin-top:20px;
+}
+
+.line{
+    width:120px;
+    height:5px;
+    margin:15px auto 20px;
+    border-radius:20px;
+    background:linear-gradient(to left,#f59e0b,#2563eb);
+}
+
+.subtitle{
+    color:#666;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.inputs{
+    display:flex;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.select-box{
+    flex:1;
+}
+
+label{
+    display:block;
+    margin-bottom:10px;
+    color:#444;
+    font-weight:700;
+}
+
+select{
+    width:100%;
+    padding:15px;
+    border:2px solid #e5e7eb;
+    border-radius:15px;
+    font-size:18px;
+    background:#fff;
+    text-align:center;
+}
+
+button{
+    width:100%;
+    border:none;
+    border-radius:18px;
+    padding:18px;
+    background:linear-gradient(135deg,#f59e0b,#fbbf24);
+    color:#143d8d;
+    font-size:28px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(245,158,11,.35);
+}
+
+#result{
+    display:none;
+    margin-top:30px;
+    background:#fff8dc;
+    border:2px solid #f3d56b;
+    border-radius:20px;
+    padding:25px;
+}
+
+.result-title{
+    color:#9a3412;
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.password{
+    display:inline-block;
+    background:linear-gradient(135deg,#1e40af,#2563eb);
+    color:white;
+    padding:15px 30px;
+    border-radius:15px;
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:2px;
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
+}
+
+.footer{
+    margin-top:35px;
+    color:#888;
+    font-size:15px;
+}
+
+@media(max-width:650px){
+
+    .inputs{
+        flex-direction:column;
+    }
+
+    h1{
+        font-size:30px;
+    }
+
+    .password{
+        font-size:24px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-badge">
+        مدرسة قلقيلية الصناعية
+    </div>
+
+    <div class="logo">🎓</div>
+
+    <h1>امتحان التربية الإسلامية</h1>
+
+    <div class="line"></div>
+
+    <p class="subtitle">
+        الرجاء اختيار تاريخ ميلادك لتوليد كلمة المرور الخاصة بك
+    </p>
+
+    <div class="inputs">
+
+        <div class="select-box">
+            <label>اليوم</label>
+            <select id="day"></select>
+        </div>
+
+        <div class="select-box">
+            <label>الشهر</label>
+            <select id="month"></select>
+        </div>
+
+        <div class="select-box">
+            <label>السنة</label>
+            <select id="year"></select>
+        </div>
+
+    </div>
+
+    <button onclick="generatePassword()">
+        🔑 أوجد كلمة المرور
+    </button>
+
+    <div id="result">
+        <div class="result-title">
+            كلمة المرور (رقم الطالب) الخاصة بك هي:
+        </div>
+
+        <div class="password" id="passwordText"></div>
+    </div>
+
+    <div class="footer">
+        جميع الحقوق محفوظة © مدرسة قلقيلية الصناعية
+    </div>
+
+</div>
+
+<script>
+
+for(let i=1;i<=31;i++){
+    let option=document.createElement("option");
+    option.value=i;
+    option.text=i;
+    document.getElementById("day").appendChild(option);
+}
+
+for(let i=1;i<=12;i++){
+    let option=document.createElement("option");
+    option.value=i;
+    option.text=i;
+    document.getElementById("month").appendChild(option);
+}
+
+for(let i=2000;i<=2015;i++){
+    let option=document.createElement("option");
+    option.value=i;
+    option.text=i;
+    document.getElementById("year").appendChild(option);
+}
+
+function generatePassword(){
+
+    let day=document.getElementById("day").value;
+    let year=document.getElementById("year").value;
+
+    day=day.padStart(2,'0');
+
+    let password="stud@" + day + year;
+
+    document.getElementById("passwordText").innerText=password;
+    document.getElementById("result").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
+```
